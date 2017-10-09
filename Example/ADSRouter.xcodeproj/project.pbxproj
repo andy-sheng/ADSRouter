@@ -13,7 +13,6 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* ADSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* ADSAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* ADSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* ADSViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -23,6 +22,11 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		850BB381DBF87BBA398449E3 /* Pods_ADSRouter_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9540D9A6EF895858740F5B02 /* Pods_ADSRouter_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		A126E78D1F8B762D0065D5C9 /* ADSPresentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A126E7831F8B762B0065D5C9 /* ADSPresentVC.m */; };
+		A126E78E1F8B762D0065D5C9 /* ADSPushWithAnimationFromCode.m in Sources */ = {isa = PBXBuildFile; fileRef = A126E7851F8B762C0065D5C9 /* ADSPushWithAnimationFromCode.m */; };
+		A126E78F1F8B762D0065D5C9 /* ADSPushWithAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A126E7881F8B762C0065D5C9 /* ADSPushWithAnimation.m */; };
+		A126E7901F8B762D0065D5C9 /* ADSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A126E78B1F8B762D0065D5C9 /* ADSViewController.m */; };
+		A126E7911F8B762D0065D5C9 /* ADSPushWithoutAnimationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A126E78C1F8B762D0065D5C9 /* ADSPushWithoutAnimationVC.m */; };
 		C88D120F051F411092737C42 /* Pods_ADSRouter_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD91E589CFA95ACA8B00F58 /* Pods_ADSRouter_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,8 +52,6 @@
 		6003F59B195388D20070C39A /* ADSRouter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ADSRouter-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* ADSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADSAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* ADSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADSAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* ADSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADSViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* ADSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADSViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* ADSRouter_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ADSRouter_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -59,11 +61,21 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6DD91E589CFA95ACA8B00F58 /* Pods_ADSRouter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ADSRouter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7DFA99B5ADA5FADE344B4148 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		7DFA99B5ADA5FADE344B4148 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9540D9A6EF895858740F5B02 /* Pods_ADSRouter_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ADSRouter_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A12DC08EA12E38C26F52D83E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		B81935DAEA02EDDA8E73BA92 /* ADSRouter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ADSRouter.podspec; path = ../ADSRouter.podspec; sourceTree = "<group>"; };
+		A126E7831F8B762B0065D5C9 /* ADSPresentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSPresentVC.m; sourceTree = "<group>"; };
+		A126E7841F8B762B0065D5C9 /* ADSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSViewController.h; sourceTree = "<group>"; };
+		A126E7851F8B762C0065D5C9 /* ADSPushWithAnimationFromCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSPushWithAnimationFromCode.m; sourceTree = "<group>"; };
+		A126E7861F8B762C0065D5C9 /* ADSPresentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSPresentVC.h; sourceTree = "<group>"; };
+		A126E7871F8B762C0065D5C9 /* ADSPushWithAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSPushWithAnimation.h; sourceTree = "<group>"; };
+		A126E7881F8B762C0065D5C9 /* ADSPushWithAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSPushWithAnimation.m; sourceTree = "<group>"; };
+		A126E7891F8B762C0065D5C9 /* ADSPushWithoutAnimationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSPushWithoutAnimationVC.h; sourceTree = "<group>"; };
+		A126E78A1F8B762C0065D5C9 /* ADSPushWithAnimationFromCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSPushWithAnimationFromCode.h; sourceTree = "<group>"; };
+		A126E78B1F8B762D0065D5C9 /* ADSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSViewController.m; sourceTree = "<group>"; };
+		A126E78C1F8B762D0065D5C9 /* ADSPushWithoutAnimationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSPushWithoutAnimationVC.m; sourceTree = "<group>"; };
+		A12DC08EA12E38C26F52D83E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B81935DAEA02EDDA8E73BA92 /* ADSRouter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ADSRouter.podspec; path = ../ADSRouter.podspec; sourceTree = "<group>"; };
 		D5CD9CCA4180D5120E0DB4A0 /* Pods-ADSRouter_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADSRouter_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ADSRouter_Example/Pods-ADSRouter_Example.release.xcconfig"; sourceTree = "<group>"; };
 		E8DE7F2663727A0EA68C206F /* Pods-ADSRouter_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADSRouter_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ADSRouter_Example/Pods-ADSRouter_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F681FC6EB05D47AE46BC44A7 /* Pods-ADSRouter_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ADSRouter_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ADSRouter_Tests/Pods-ADSRouter_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,11 +144,19 @@
 		6003F593195388D20070C39A /* Example for ADSRouter */ = {
 			isa = PBXGroup;
 			children = (
+				A126E7861F8B762C0065D5C9 /* ADSPresentVC.h */,
+				A126E7831F8B762B0065D5C9 /* ADSPresentVC.m */,
+				A126E7871F8B762C0065D5C9 /* ADSPushWithAnimation.h */,
+				A126E7881F8B762C0065D5C9 /* ADSPushWithAnimation.m */,
+				A126E78A1F8B762C0065D5C9 /* ADSPushWithAnimationFromCode.h */,
+				A126E7851F8B762C0065D5C9 /* ADSPushWithAnimationFromCode.m */,
+				A126E7891F8B762C0065D5C9 /* ADSPushWithoutAnimationVC.h */,
+				A126E78C1F8B762D0065D5C9 /* ADSPushWithoutAnimationVC.m */,
+				A126E7841F8B762B0065D5C9 /* ADSViewController.h */,
+				A126E78B1F8B762D0065D5C9 /* ADSViewController.m */,
 				6003F59C195388D20070C39A /* ADSAppDelegate.h */,
 				6003F59D195388D20070C39A /* ADSAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* ADSViewController.h */,
-				6003F5A6195388D20070C39A /* ADSViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -413,8 +433,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* ADSAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* ADSViewController.m in Sources */,
+				A126E7901F8B762D0065D5C9 /* ADSViewController.m in Sources */,
+				A126E78F1F8B762D0065D5C9 /* ADSPushWithAnimation.m in Sources */,
+				A126E78D1F8B762D0065D5C9 /* ADSPresentVC.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				A126E7911F8B762D0065D5C9 /* ADSPushWithoutAnimationVC.m in Sources */,
+				A126E78E1F8B762D0065D5C9 /* ADSPushWithAnimationFromCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

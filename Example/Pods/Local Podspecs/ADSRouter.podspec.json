@@ -1,0 +1,22 @@
+{
+  "name": "ADSRouter",
+  "version": "0.1.0",
+  "summary": "A short description of ADSRouter.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/andysheng@live.com/ADSRouter",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "andysheng@live.com": "andysheng@live.com"
+  },
+  "source": {
+    "git": "https://github.com/andysheng@live.com/ADSRouter.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ADSRouter/Classes/**/*"
+}
