@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class ADSURL;
 
 typedef NS_ENUM(NSUInteger, ADSVCShowStyle) {
     ADSVCShowStylePush,
@@ -16,18 +17,18 @@ typedef NS_ENUM(NSUInteger, ADSVCShowStyle) {
 @interface ADSRouteInfo : NSObject
 
 
-@property (nonatomic, copy) NSString *klass;
-//@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *clsName;
 
 @property (nonatomic, strong) NSDictionary *paramMapping;
 
-@property (nonatomic, copy) void(^beforeJumpBlock)(void);
+@property (nonatomic, copy) void (^beforeJumpBlock)(ADSURL *url, BOOL * abort);
 @property (nonatomic, copy) void(^completion)(void);
 
 @property (nonatomic, assign) BOOL isAwakeFromStoryBoard;
 @property (nonatomic, copy) NSString *storyBoardName;
 @property (nonatomic, copy) NSString *storyBoardId;
 @property (nonatomic, assign) BOOL hideNav;
+@property (nonatomic, assign) BOOL supportFly;
 
 @property (nonatomic, assign) ADSVCShowStyle showStyle;
 @property (nonatomic, assign) BOOL animation;

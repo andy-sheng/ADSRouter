@@ -8,7 +8,7 @@
 
 #import "ADSPushWithAnimationFromCode.h"
 #import "ADSAnnotation.h"
-
+#import "ADSRouter.h"
 @interface ADSPushWithAnimationFromCode ()
 
 @end
@@ -23,9 +23,12 @@ ADS_PARAMETER_MAPPING(ADSPushWithAnimationFromCode, NSDecimalNumberParam, "nsdec
 ADS_PARAMETER_MAPPING(ADSPushWithAnimationFromCode, CGFloatParam, "cgfloat")
 ADS_PARAMETER_MAPPING(ADSPushWithAnimationFromCode, url, "url")
 ADS_PARAMETER_MAPPING(ADSPushWithAnimationFromCode, date, "date")
-ADS_BEFORE_JUMP(^(){
-    NSLog(@"will jump");
+ADS_BEFORE_JUMP(^(ADSURL * _Nonnull url, BOOL * _Nonnull abort) {
+    *abort = YES;
+    [[ADSRouter sharedRouter] openUrl:@"wfshop://present"];
 })
+ADS_SUPPORT_FLY
+
 
 
 - (void)viewDidLoad {

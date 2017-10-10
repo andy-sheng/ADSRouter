@@ -8,7 +8,7 @@
 
 #import "ADSRouter.h"
 #import "ADSRouteInfo.h"
-#import "NSURL+ASURL.h"
+#import "ADSURL.h"
 #import "ADSClassInfo.h"
 #import "ADSSetValueToProperty.h"
 #import <objc/runtime.h>
@@ -28,27 +28,36 @@ NSArray<NSString*>* ADSGetMethodNames(Class klass) {
     return methodNames;
 }
 
-ADSRouteInfo *ADSGetRouteInfoFromVC(NSString *klassName) {
+ADSRouteInfo *ADSGetRouteInfoFromVC(NSString *clsName) {
     ADSRouteInfo *routeInfo = [ADSRouteInfo new];
-    routeInfo.klass = klassName;
-    id vc = [NSClassFromString(klassName) new];
+    routeInfo.clsName = clsName;
+    id vc = [NSClassFromString(clsName) new];
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    // ADS_STORYBOARD(storyBoardName, storyBoardId)
     if ([vc respondsToSelector:@selector(ads_storyBoardName)]) {
         routeInfo.isAwakeFromStoryBoard = YES;
         routeInfo.storyBoardName = [vc performSelector:@selector(ads_storyBoardName)];
         routeInfo.storyBoardId = [vc performSelector:@selector(ads_storyBoardId)];
     }
     
+    // ADS_BEFORE_JUMP(beforeJumpBlock)
     if ([vc respondsToSelector:@selector(ads_beforeJumpBlock)]) {
         routeInfo.beforeJumpBlock = [vc performSelector:@selector(ads_beforeJumpBlock)];
     }
     
+    // ADS_SUPPORT_FLY
+    routeInfo.supportFly = [vc respondsToSelector:@selector(ads_supportFly)];
+    
+    // ADS_HIDE_NAV
     routeInfo.hideNav = [vc respondsToSelector:@selector(ads_hideNav)];
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    
+    // ADS_SHOWSTYLE
     NSMutableDictionary *paramMapping = [NSMutableDictionary dictionary];
     routeInfo.animation = YES;
-    for (NSString *methodName in ADSGetMethodNames(NSClassFromString(klassName))) {
+    for (NSString *methodName in ADSGetMethodNames(NSClassFromString(clsName))) {
         if ([methodName hasPrefix:@"ads_propertymapping_"]) {
             NSDictionary *mapping = [vc performSelector:NSSelectorFromString(methodName)];
             paramMapping[mapping[@"paramName"]] = mapping[@"propertyName"];
@@ -86,11 +95,11 @@ UIViewController* ADSTopViewController() {
 }
 
 
-
 @interface ADSRouter ()
 
 @property (nonatomic, strong) NSMutableDictionary *urlAndVCMapping;
 @property (nonatomic, strong) NSCache<NSString*, ADSRouteInfo*> *routeCache;
+@property (nonatomic, strong) NSCache<NSString*, UIViewController*> *VCCache;
 
 @end
 
@@ -111,6 +120,7 @@ UIViewController* ADSTopViewController() {
     if (self) {
         _urlAndVCMapping = [NSMutableDictionary dictionary];
         _routeCache = [NSCache new];
+        _VCCache = [NSCache new];
     }
     return self;
 }
@@ -131,12 +141,25 @@ UIViewController* ADSTopViewController() {
 @implementation ADSRouter (Open)
 
 - (void)openUrl:(NSString *)aUrl {
-    NSURL *url = [NSURL URLWithString:aUrl];
-    ADSRouteInfo *routeInfo = [self _ads_getRouteInfo:url.ads_compareString];
+    
+    // Parse URL
+    ADSURL *url = [ADSURL URLWithString:aUrl];
+    
+    // Get URL information from binary and runtime
+    ADSRouteInfo *routeInfo = [self _ads_getRouteInfo:url.compareString];
     if (!routeInfo) {
         return;
     }
-    [self _ads_openUrl:routeInfo params:url.ads_parameters];
+    
+    // Do beforeJump
+    [self _ads_doBeforeJumpWithRouteInfo:routeInfo url:url];
+    
+    // Instancelize destnation viewController
+    UIViewController *dest = [self _ads_getVCWithRouteInfo:routeInfo url:url];
+    
+    // Show viewController
+    [self _ads_showVC:dest withRouteInfo:routeInfo];
+    
 }
 
 - (ADSRouteInfo*)_ads_getRouteInfo:(NSString*)aUrl {
@@ -153,17 +176,52 @@ UIViewController* ADSTopViewController() {
     return routeInfo;
 }
 
-- (void)_ads_openUrl:(ADSRouteInfo*)routeInfo params:(NSDictionary*)parameters {
+- (void)_ads_doBeforeJumpWithRouteInfo:(ADSRouteInfo*)routeInfo url:(ADSURL*)url {
+    if (routeInfo.beforeJumpBlock) {
+        BOOL abort = NO;
+        routeInfo.beforeJumpBlock(url, &abort);
+        if (abort) {
+            return;
+        }
+    }
+}
+
+- (UIViewController*)_ads_getVCWithRouteInfo:(ADSRouteInfo*)routeInfo url:(ADSURL*)url {
+    UIViewController *dest;
+    if (!routeInfo.supportFly) {
+        dest = [self _ads_VCFactory:routeInfo];
+    } else {
+        dest = [_VCCache objectForKey:url.compareString];
+        if (!dest || dest.parentViewController) {
+            dest = [self _ads_VCFactory:routeInfo];
+        }
+        [_VCCache setObject:dest forKey:url.compareString];
+    }
+    [self _ads_prepareVC:dest routeInfo:routeInfo params:url.parameters];
+    return dest;
+}
+
+- (UIViewController*)_ads_VCFactory:(ADSRouteInfo*)routeInfo {
     UIViewController *destVC;
     if (routeInfo.isAwakeFromStoryBoard) {
         destVC = [[UIStoryboard storyboardWithName:routeInfo.storyBoardName bundle:nil] instantiateViewControllerWithIdentifier:routeInfo.storyBoardId];
     } else {
-        destVC = [NSClassFromString(routeInfo.klass) new];
+        destVC = [NSClassFromString(routeInfo.clsName) new];
     }
-    [self _ads_prepareVC:destVC routeInfo:routeInfo params:parameters];
-    if (routeInfo.beforeJumpBlock) {
-        routeInfo.beforeJumpBlock();
-    }
+    return destVC;
+}
+
+- (void)_ads_prepareVC:(UIViewController*)vc routeInfo:(ADSRouteInfo*)routeInfo params:(NSDictionary*)parameters {
+    ADSClassInfo *classInfo = [ADSClassInfo classInfoWithClassName:routeInfo.clsName];
+    [parameters enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSString *propertyName = routeInfo.paramMapping[key];
+        if (propertyName && classInfo.propertyInfos[propertyName]) {
+            ADSSetValueToProperty(vc, obj, classInfo.propertyInfos[propertyName]);
+        }
+    }];
+}
+
+- (void)_ads_showVC:(UIViewController*)destVC withRouteInfo:(ADSRouteInfo*)routeInfo {
     switch (routeInfo.showStyle) {
         case ADSVCShowStylePush:
             [self _ads_pushVC:destVC animated:routeInfo.animation];
@@ -174,16 +232,6 @@ UIViewController* ADSTopViewController() {
         default:
             break;
     }
-}
-
-- (void)_ads_prepareVC:(UIViewController*)vc routeInfo:(ADSRouteInfo*)routeInfo params:(NSDictionary*)parameters {
-    ADSClassInfo *classInfo = [ADSClassInfo classInfoWithClassName:routeInfo.klass];
-    [parameters enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        NSString *propertyName = routeInfo.paramMapping[key];
-        if (propertyName && classInfo.propertyInfos[propertyName]) {
-            ADSSetValueToProperty(vc, obj, classInfo.propertyInfos[propertyName]);
-        }
-    }];
 }
 
 - (void)_ads_pushVC:(UIViewController*)vc animated:(BOOL)animated {

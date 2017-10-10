@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ADSURL.h"
 
 #define STRINGLIFY(str) #str
 
@@ -72,7 +73,7 @@ GetAt
 
 #define ADS_BEFORE_JUMP(beforeJumpBlock) \
 GetAt \
-- (void(^)(void))ads_beforeJumpBlock { \
+- (void(^)(ADSURL *url, BOOL * abort))ads_beforeJumpBlock { \
     return beforeJumpBlock; \
 }
 
@@ -92,6 +93,9 @@ return NO; \
 GetAt \
 - (void)ads_showstyle_present {}
 
+#define ADS_SUPPORT_FLY \
+GetAt \
+- (void)ads_supportFly {}
 
 @interface ADSAnnotation : NSObject
 

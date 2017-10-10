@@ -7,7 +7,7 @@
 //
 
 #import "ADSPushWithAnimation.h"
-#import "ADSAnnotation.h"
+#import "ADSRouter.h"
 
 @interface ADSPushWithAnimation ()
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
@@ -22,17 +22,17 @@
 @implementation ADSPushWithAnimation
 
 ADS_REQUEST_MAPPING(ADSPushWithAnimation, "wfshop://pushWithAnimation")
-ADS_BEFORE_JUMP(^(){
-    
-})
 ADS_PARAMETER_MAPPING(ADSPushWithAnimation, productId, "id")
 ADS_PARAMETER_MAPPING(ADSPushWithAnimation, string, "string")
 ADS_PARAMETER_MAPPING(ADSPushWithAnimation, nsNumber, "nsNumber")
 ADS_SHOWSTYLE_PUSH_WITH_ANIMATION
 ADS_STORYBOARD("Main", "ADSPushWithAnimation")
+ADS_SUPPORT_FLY
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = [NSString stringWithFormat:@"%p", self];
     // Do any additional setup after loading the view.
 }
 
@@ -45,12 +45,18 @@ ADS_STORYBOARD("Main", "ADSPushWithAnimation")
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)jump:(id)sender {
+    [[ADSRouter sharedRouter] openUrl:@"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23"];
+}
 
 
 - (void)setProductId:(NSUInteger)productId {
     _productId = productId;
 }
 
+- (void)dealloc {
+    NSLog(@"dealloc");
+}
 /*
 #pragma mark - Navigation
 

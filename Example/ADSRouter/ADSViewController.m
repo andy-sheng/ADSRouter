@@ -7,8 +7,8 @@
 //
 
 #import "ADSViewController.h"
-#include "ADSRouter.h"
-
+#import "ADSRouter.h"
+#import "ADSURL.h"
 @interface ADSViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -21,12 +21,10 @@
 {
     [super viewDidLoad];
     
-   
-    
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    _urls = @[@"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23", @"wfshop://pushWithoutAnimation", @"wfshop://present", @"wfshop://pushWithAnimationFromCode?nsstring=%E5%93%88%E5%93%88&int=123&nsnumberparam=1.1&nsdecimalnumber=1.23&cgfloat=1.234&url=http://asdf?a=as&date=2014-01-20"];
+    _urls = @[@"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23", @"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23",@"wfshop://pushWithoutAnimation", @"wfshop://present", @"wfshop://pushWithAnimationFromCode?nsstring=%E5%93%88%E5%93%88&int=123&nsnumberparam=1.1&nsdecimalnumber=1.23&cgfloat=1.234&url=http://asdf?a=as&date=2014-01-20"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

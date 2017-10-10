@@ -9,9 +9,9 @@
 #import "ADSRouteInfo.h"
 
 @implementation ADSRouteInfo
-
-- (NSString*)description {
-    return [NSString stringWithFormat:@"class:\n  %@\nparamMapping:\n  %@\nstoryBoardName:\n  %@\nstoryBoardId:\n  %@\n", _klass, _paramMapping, _storyBoardName, _storyBoardId];
-}
+//
+//- (NSString*)description {
+//    return [NSString stringWithFormat:@"class:\n  %@\nparamMapping:\n  %@\nstoryBoardName:\n  %@\nstoryBoardId:\n  %@\n", _, _paramMapping, _storyBoardName, _storyBoardId];
+//}
 
 @end
