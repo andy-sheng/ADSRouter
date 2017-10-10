@@ -11,6 +11,7 @@
 #import "ADSURL.h"
 #import "ADSClassInfo.h"
 #import "ADSSetValueToProperty.h"
+#import "ADSRouterConfig.h"
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
@@ -101,6 +102,8 @@ UIViewController* ADSTopViewController() {
 @property (nonatomic, strong) NSCache<NSString*, ADSRouteInfo*> *routeCache;
 @property (nonatomic, strong) NSCache<NSString*, UIViewController*> *VCCache;
 
+@property (nonatomic, strong) ADSRouterConfig *routerConfig;
+
 @end
 
 
@@ -121,6 +124,7 @@ UIViewController* ADSTopViewController() {
         _urlAndVCMapping = [NSMutableDictionary dictionary];
         _routeCache = [NSCache new];
         _VCCache = [NSCache new];
+        _routerConfig = [ADSRouterConfig new];
     }
     return self;
 }
@@ -138,6 +142,24 @@ UIViewController* ADSTopViewController() {
 
 @end
 
+@implementation ADSRouter (ADSConfig)
+
+- (void)setVCCacheCapacity:(NSUInteger)capacity {
+    _VCCache.countLimit = capacity;
+    _routerConfig.VCCacheCapacity = capacity;
+}
+
+- (void)setRouterInfoCacheCapacity:(NSUInteger)capacity {
+    _routeCache.countLimit = capacity;
+    _routerConfig.routerInfoCacheCapacity = capacity;
+}
+
+- (void)setRouteMismatchCallback:(ADSRouteMismatchCallback)callback {
+    _routerConfig.routeMismatchCallback = callback;
+}
+
+@end
+
 @implementation ADSRouter (Open)
 
 - (void)openUrl:(NSString *)aUrl {
@@ -148,6 +170,9 @@ UIViewController* ADSTopViewController() {
     // Get URL information from binary and runtime
     ADSRouteInfo *routeInfo = [self _ads_getRouteInfo:url.compareString];
     if (!routeInfo) {
+        if (_routerConfig.routeMismatchCallback) {
+            _routerConfig.routeMismatchCallback(url);
+        }
         return;
     }
     

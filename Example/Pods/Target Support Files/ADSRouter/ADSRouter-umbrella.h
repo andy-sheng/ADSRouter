@@ -14,6 +14,7 @@
 #import "ADSClassInfo.h"
 #import "ADSRouteInfo.h"
 #import "ADSRouter.h"
+#import "ADSRouterConfig.h"
 #import "ADSSetValueToProperty.h"
 #import "ADSURL.h"
 

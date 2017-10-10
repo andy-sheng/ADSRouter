@@ -8,12 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "ADSAnnotation.h"
-
+#import "ADSRouterConfig.h"
 
 
 @interface ADSRouter : NSObject
 
 + (instancetype)sharedRouter;
+
+@end
+
+@interface ADSRouter (ADSConfig)
+
+- (void)setRouterInfoCacheCapacity:(NSUInteger)capacity;
+- (void)setVCCacheCapacity:(NSUInteger)capacity;
+- (void)setRouteMismatchCallback:(ADSRouteMismatchCallback)callback;
 
 @end
 

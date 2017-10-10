@@ -7,12 +7,17 @@
 //
 
 #import "ADSAppDelegate.h"
+#import "ADSRouter.h"
 
 @implementation ADSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[ADSRouter sharedRouter] setRouteMismatchCallback:^(ADSURL *url) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"url mismatch" message:url.compareString preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"cancle" style:UIAlertActionStyleCancel handler:nil]];
+        [application.keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }];
     return YES;
 }
 
