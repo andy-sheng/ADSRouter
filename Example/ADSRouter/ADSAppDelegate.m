@@ -13,6 +13,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[ADSRouter sharedRouter] setVCCacheCapacity:10];
+    [[ADSRouter sharedRouter] setRouterInfoCacheCapacity:10];
     [[ADSRouter sharedRouter] setRouteMismatchCallback:^(ADSURL *url) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"url mismatch" message:url.compareString preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"cancle" style:UIAlertActionStyleCancel handler:nil]];
