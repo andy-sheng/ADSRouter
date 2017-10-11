@@ -10,8 +10,17 @@
 #import "ADSAnnotation.h"
 #import "ADSRouterConfig.h"
 
+@protocol ADSRouterInterceptor <NSObject>
+
+@required
+- (ADSURL*)intercept:(ADSURL*)url;
+
+@end
+
 
 @interface ADSRouter : NSObject
+
+@property (nonatomic, weak) id<ADSRouterInterceptor> routerInterceptor;
 
 + (instancetype)sharedRouter;
 

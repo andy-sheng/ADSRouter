@@ -9,10 +9,15 @@
 #import "ADSAppDelegate.h"
 #import "ADSRouter.h"
 
+@interface ADSAppDelegate () <ADSRouterInterceptor>
+
+@end
+
 @implementation ADSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[ADSRouter sharedRouter] setRouterInterceptor:self];
     [[ADSRouter sharedRouter] setVCCacheCapacity:10];
     [[ADSRouter sharedRouter] setRouterInfoCacheCapacity:10];
     [[ADSRouter sharedRouter] setRouteMismatchCallback:^(ADSURL *url) {
@@ -49,5 +54,21 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (ADSURL*)intercept:(ADSURL *)url {
+    // you can fetch some information from your server here
+    if ([self urlMatchesSomeCondition:url]) {
+        url = [ADSURL URLWithString:@"wfshop://present"];
+    }
+    return url;
+}
+
+- (BOOL)urlMatchesSomeCondition:(ADSURL*)url {
+    if ([url.compareString isEqualToString:@"wfshop://interceptorTest"]) {
+        return YES;
+    }
+    return NO;
+}
+
 
 @end

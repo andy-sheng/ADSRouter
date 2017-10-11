@@ -22,6 +22,8 @@ pod 'ADSRouter'
 
 ## Usage
 
+>   Everything you may need to know can be found in the example project.
+
 ### 1. ADSRouter的配置
 
 ```objc
@@ -117,6 +119,28 @@ ADS_SUPPORT_FLY
 
 ```objc
 [[ADSRouter sharedRouter] openUrl:@"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23"];
+```
+
+### 4. 利用ADSRouteInterceptor拦截请求
+你可以为ADSRouter设置一个拦截器，对一些符合你的要求的URL进行重定向。
+
+```objc
+[[ADSRouter sharedRouter] setRouterInterceptor:self];
+
+- (ADSURL*)intercept:(ADSURL *)url {
+    // you can fetch some information from your server here
+    if ([self urlMatchesSomeCondition:url]) {
+        url = [ADSURL URLWithString:@"wfshop://present"];
+    }
+    return url;
+}
+
+- (BOOL)urlMatchesSomeCondition:(ADSURL*)url {
+    if ([url.compareString isEqualToString:@"wfshop://interceptorTest"]) {
+        return YES;
+    }
+    return NO;
+}
 ```
 
 ### 4. 目前支持的参数类型
