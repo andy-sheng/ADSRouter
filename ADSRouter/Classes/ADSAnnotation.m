@@ -20,7 +20,7 @@
 static char * const kSectionName = STRINGLIFY(ADS_SECTION_NAME);
 
 NSArray<NSString *>* ADSReadConfiguration(char *sectionName,const struct mach_header *mhp);
-static void dyld_callback(const struct mach_header *mhp, intptr_t vmaddr_slide)
+static void ADSDyldCallback(const struct mach_header *mhp, intptr_t vmaddr_slide)
 {
     NSArray *routers = ADSReadConfiguration(kSectionName, mhp);
     for (NSString *router in routers) {
@@ -30,8 +30,8 @@ static void dyld_callback(const struct mach_header *mhp, intptr_t vmaddr_slide)
 }
 
 __attribute__((constructor))
-void initProphet() {
-    _dyld_register_func_for_add_image(dyld_callback);
+void ADSInitProphet() {
+    _dyld_register_func_for_add_image(ADSDyldCallback);
 }
 
 NSArray<NSString *>* ADSReadConfiguration(char *sectionName,const struct mach_header *mhp)
