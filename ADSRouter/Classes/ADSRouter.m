@@ -83,7 +83,7 @@
 
 @implementation ADSRouter (Open)
 
-- (void)openUrl:(NSString *)aUrl {
+- (void)openUrlString:(NSString *)aUrl {
     
     // Parse URL
     ADSURL *url = [ADSURL URLWithString:aUrl];
@@ -109,6 +109,10 @@
     // Show viewController
     [self _ads_showVC:dest withRouteInfo:routeInfo];
     
+}
+
+- (void)openUrl:(NSURL *)aUrl {
+    [self openUrlString:aUrl.absoluteString];
 }
 
 - (ADSRouteInfo*)_ads_getRouteInfo:(NSString*)aUrl {
@@ -153,7 +157,12 @@
 - (UIViewController*)_ads_VCFactory:(ADSRouteInfo*)routeInfo {
     UIViewController *destVC;
     if (routeInfo.isAwakeFromStoryBoard) {
-        destVC = [[UIStoryboard storyboardWithName:routeInfo.storyBoardName bundle:nil] instantiateViewControllerWithIdentifier:routeInfo.storyBoardId];
+        NSBundle *bundle = nil;
+        if (![routeInfo.bundleName isEqualToString:@""]) {
+            NSString *bundlePath = [[NSBundle mainBundle] pathForResource:routeInfo.bundleName ofType:@"bundle"];
+            bundle = [NSBundle bundleWithPath:bundlePath];
+        }
+        destVC = [[UIStoryboard storyboardWithName:routeInfo.storyBoardName bundle:bundle] instantiateViewControllerWithIdentifier:routeInfo.storyBoardId];
     } else {
         destVC = [NSClassFromString(routeInfo.clsName) new];
     }

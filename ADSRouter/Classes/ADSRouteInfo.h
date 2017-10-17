@@ -25,8 +25,11 @@ typedef NS_ENUM(NSUInteger, ADSVCShowStyle) {
 @property (nonatomic, copy) void(^completion)(void);
 
 @property (nonatomic, assign) BOOL isAwakeFromStoryBoard;
+
+@property (nonatomic, copy) NSString *bundleName;
 @property (nonatomic, copy) NSString *storyBoardName;
 @property (nonatomic, copy) NSString *storyBoardId;
+
 @property (nonatomic, assign) BOOL hideNav;
 @property (nonatomic, assign) BOOL supportFly;
 

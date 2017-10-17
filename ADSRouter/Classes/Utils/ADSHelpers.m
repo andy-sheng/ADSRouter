@@ -35,6 +35,7 @@ ADSRouteInfo *ADSGetRouteInfoFromVC(NSString *clsName) {
     // ADS_STORYBOARD(storyBoardName, storyBoardId)
     if ([vc respondsToSelector:@selector(ads_storyBoardName)]) {
         routeInfo.isAwakeFromStoryBoard = YES;
+        routeInfo.bundleName = [vc performSelector:@selector(ads_bundleName)];
         routeInfo.storyBoardName = [vc performSelector:@selector(ads_storyBoardName)];
         routeInfo.storyBoardId = [vc performSelector:@selector(ads_storyBoardId)];
     }

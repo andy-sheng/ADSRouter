@@ -55,15 +55,19 @@ return @{@"paramName":@paramName, @"propertyName":@#propertyName};\
 #define ADS_PARAMETER_MAPPING_SIMPLIFY(className, propertyName) \
 ADS_PARAMETER_MAPPING(className, propertyName, STRINGLIFY(propertyName)); \
 
-
-#define ADS_STORYBOARD(storyBoardName, storyBoardId) \
-GetAt \
+#define ADS_STORYBOARD_IN_BUNDLE(storyBoardName, storyBoardId, bundleName) \
+- (NSString*)ads_bundleName { \
+return @bundleName;\
+} \
 - (NSString*)ads_storyBoardName { \
 return @storyBoardName;\
 } \
 - (NSString*)ads_storyBoardId { \
-    return @storyBoardId;\
+return @storyBoardId;\
 }
+
+#define ADS_STORYBOARD(storyBoardName, storyBoardId) \
+ADS_STORYBOARD_IN_BUNDLE(storyBoardName, storyBoardId, "")
 
 #define ADS_HIDE_NAV \
 GetAt

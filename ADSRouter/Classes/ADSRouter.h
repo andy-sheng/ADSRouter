@@ -43,6 +43,8 @@
 
 @interface ADSRouter (ADSOpen)
 
-- (void)openUrl:(NSString*)aUrl;
+- (void)openUrlString:(NSString*)aUrl;
+
+- (void)openUrl:(NSURL*)aUrl;
 
 @end
