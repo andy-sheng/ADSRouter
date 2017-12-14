@@ -16,6 +16,7 @@
 
 @implementation ADSPushWithoutAnimationVC
 
+
 ADS_REQUEST_MAPPING(ADSPushWithoutAnimationVC, "wfshop://pushWithoutAnimation")
 ADS_SHOWSTYLE_PUSH_WITHOUT_ANIMATION
 ADS_STORYBOARD("Main", "ADSPushWithoutAnimationVC")

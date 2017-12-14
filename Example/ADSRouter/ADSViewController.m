@@ -24,7 +24,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    _urls = @[@"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23", @"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23",@"wfshop://pushWithoutAnimation", @"wfshop://present", @"wfshop://pushWithAnimationFromCode?nsstring=%E5%93%88%E5%93%88&int=123&nsnumberparam=1.1&nsdecimalnumber=1.23&cgfloat=1.234&url=http://asdf?a=as&date=2014-01-20",@"wfshop://asd",@"wfshop://interceptorTest"];
+    _urls = @[@"wfshop://pushWithAnimation?id=1&string=hello&nsNumber=1.23", @"wfshop://pushWithAnimation?id=1&string=%e5%91%b5%e5%91%b5&nsNumber=1.23",@"wfshop://pushWithoutAnimation", @"wfshop://present", @"wfshop://pushWithAnimationFromCode?nsstring=%E5%93%88%E5%93%88&int=123&nsnumberparam=1.1&nsdecimalnumber=1.23&cgfloat=1.234&url=http://asdf?a=as&date=2014-01-20",@"wfshop://asd",@"wfshop://interceptorTest"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -46,7 +46,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[ADSRouter sharedRouter] openUrl:_urls[indexPath.row]];
+    [[ADSRouter sharedRouter] openUrlString:_urls[indexPath.row]];
     NSLog(@"open url: %@", _urls[indexPath.row]);
 }
 @end

@@ -135,7 +135,7 @@ typedef NS_OPTIONS(NSUInteger, ADSEncodingType) {
 
 /**
  If the class is changed (for example: you add a method to this class with
- 'class_addMethod()'), you should call this method to refresh the class info cache.
+ 'class_addMethod()'), you should call this methodpro to refresh the class info cache.
  
  After called this method, `needUpdate` will returns `YES`, and you should call
  'classInfoWithClass' or 'classInfoWithClassName' to get the updated class info.

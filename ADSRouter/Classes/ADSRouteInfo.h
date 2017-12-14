@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, ADSVCShowStyle) {
 @property (nonatomic, copy) NSString *storyBoardName;
 @property (nonatomic, copy) NSString *storyBoardId;
 
+@property (nonatomic, assign) BOOL hideBottomBar;
 @property (nonatomic, assign) BOOL hideNav;
 @property (nonatomic, assign) BOOL supportFly;
 

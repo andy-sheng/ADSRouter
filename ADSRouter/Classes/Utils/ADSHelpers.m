@@ -51,6 +51,9 @@ ADSRouteInfo *ADSGetRouteInfoFromVC(NSString *clsName) {
     // ADS_HIDE_NAV
     routeInfo.hideNav = [vc respondsToSelector:@selector(ads_hideNav)];
     
+    // ADS_HIDE_BOTTOM_BAR
+    routeInfo.hideBottomBar = [vc respondsToSelector:@selector(ads_hideBottomBar)];
+    
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     
     // ADS_SHOWSTYLE

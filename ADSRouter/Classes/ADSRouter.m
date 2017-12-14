@@ -85,6 +85,8 @@
 
 - (void)openUrlString:(NSString *)aUrl {
     
+    // encode URL
+    aUrl = [aUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     // Parse URL
     ADSURL *url = [ADSURL URLWithString:aUrl];
     
@@ -101,7 +103,9 @@
     }
     
     // Do beforeJump
-    [self _ads_doBeforeJumpWithRouteInfo:routeInfo url:url];
+    if (![self _ads_doBeforeJumpWithRouteInfo:routeInfo url:url]) {
+        return;
+    }
     
     // Instancelize destnation viewController
     UIViewController *dest = [self _ads_getVCWithRouteInfo:routeInfo url:url];
@@ -129,14 +133,15 @@
     return routeInfo;
 }
 
-- (void)_ads_doBeforeJumpWithRouteInfo:(ADSRouteInfo*)routeInfo url:(ADSURL*)url {
+- (BOOL)_ads_doBeforeJumpWithRouteInfo:(ADSRouteInfo*)routeInfo url:(ADSURL*)url {
     if (routeInfo.beforeJumpBlock) {
         BOOL abort = NO;
         routeInfo.beforeJumpBlock(url, &abort);
         if (abort) {
-            return;
+            return NO;
         }
     }
+    return YES;
 }
 
 - (UIViewController*)_ads_getVCWithRouteInfo:(ADSRouteInfo*)routeInfo url:(ADSURL*)url {
@@ -177,6 +182,12 @@
             ADSSetValueToProperty(vc, obj, classInfo.propertyInfos[propertyName]);
         }
     }];
+    
+    if (routeInfo.hideBottomBar) {
+        vc.hidesBottomBarWhenPushed = YES;
+    } else {
+        vc.hidesBottomBarWhenPushed = NO;
+    }
 }
 
 - (void)_ads_showVC:(UIViewController*)destVC withRouteInfo:(ADSRouteInfo*)routeInfo {

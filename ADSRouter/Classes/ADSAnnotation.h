@@ -39,13 +39,11 @@ void check##propertyName() {\
 #define __ADS_DATA(sectName) __attribute((used, section("__DATA,"#sectName" ")))
 
 #define ADS_REQUEST_MAPPING(className, url) \
-GetAt \
 __ADS_CLASS_NAME_CHECK(className); \
 char * k##className __ADS_DATA(ADS_SECTION_NAME) = "{ \"url\": \""url"\", \"className\": \""#className"\"}";
 
 
 #define ADS_PARAMETER_MAPPING(className, propertyName, paramName) \
-GetAt \
 __ADS_PROPERTY_NAME_CHECK(className, propertyName);\
 -(NSDictionary<NSString*, NSString*>*) ads_propertymapping_##propertyName  { \
 return @{@"paramName":@paramName, @"propertyName":@#propertyName};\
@@ -68,6 +66,12 @@ return @storyBoardId;\
 
 #define ADS_STORYBOARD(storyBoardName, storyBoardId) \
 ADS_STORYBOARD_IN_BUNDLE(storyBoardName, storyBoardId, "")
+
+#define ADS_HIDE_BOTTOM_BAR \
+- (BOOL)ads_hideBottomBar { \
+return YES; \
+}
+
 
 #define ADS_HIDE_NAV \
 GetAt
