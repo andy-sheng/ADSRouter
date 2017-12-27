@@ -24,7 +24,7 @@ void check##className() { \
 }
 
 #define __ADS_PROPERTY_NAME_CHECK(className, propertyName) \
-void check##propertyName() {\
+void check##className##propertyName() {\
 [className new].propertyName; \
 }
 
